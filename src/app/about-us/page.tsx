@@ -4,12 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiEye, FiZap, FiTarget, FiHeart, FiAward, FiUsers, FiBriefcase } from 'react-icons/fi';
 
-// Define Theme Colors for consistency
-const THEME_COLORS = {
-    primary: 'indigo',
-    secondary: 'yellow',
-};
-
 // Trust Values/Pillars Data
 const TRUST_VALUES = [
     { title: 'Transparency', icon: <FiEye />, description: 'Operating with complete openness and accountability in all financial and programmatic decisions.' },
@@ -58,7 +52,7 @@ export default function AboutUsPage() {
                 <div className="absolute inset-0 bg-indigo-900 opacity-80"></div>
                 <div className="relative z-10 text-white p-6 max-w-4xl mx-auto">
                     <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
-                        Our Commitment to India's Future
+                        Our Commitment to India&apos;s Future
                     </h1>
                     <p className="text-lg md:text-xl opacity-95 drop-shadow-md">
                         The Pinakin India Trust is registered under the Indian Trusts Act, working diligently to create impactful and measurable change in society.

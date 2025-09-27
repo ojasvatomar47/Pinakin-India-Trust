@@ -83,7 +83,7 @@ export default function FAQsPage() {
         <>
           We welcome dedicated volunteers! We need support in areas like teaching, medical services, event management, and digital literacy.
           <br /><br />
-          Please visit the <strong>Contact Us</strong> page and specify "Volunteer Inquiry" in the subject line, detailing your skills and availability. Our outreach team will get back to you shortly.
+          Please visit the <strong>Contact Us</strong> page and specify &quot;Volunteer Inquiry&quot; in the subject line, detailing your skills and availability. Our outreach team will get back to you shortly.
         </>
       )
     },
@@ -146,7 +146,7 @@ export default function FAQsPage() {
             Still Have Questions?
           </h2>
           <p className="text-lg text-gray-700 mb-6">
-            If your question wasn't answered here, please don't hesitate to reach out to our team directly. We prioritize transparency.
+            If your question wasn&apos;t answered here, please don&apos;t hesitate to reach out to our team directly. We prioritize transparency.
           </p>
           {/* CTA Button using primary theme colors */}
           <Link

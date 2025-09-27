@@ -115,7 +115,6 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* 2. About Us Summary & CTA - VISIBILITY FINE */}
       {/* ---------------------------------------------------- */}
-      // Updated section for Integrity. Impact. Change.
       <section className="container mx-auto px-4 py-16 md:py-24 text-center">
         <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6">
           {/* Adjusted to bold/extrabold font for higher impact */}
@@ -248,9 +247,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      // ----------------------------------------------------
-      // 6. Donation & Contact CTA - VISIBILITY IMPROVED
-      // ----------------------------------------------------
       <section className="container mx-auto px-4 py-16 md:py-24 text-center bg-gray-50">
         <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-8">
           Support Our Mission: Donate Today
