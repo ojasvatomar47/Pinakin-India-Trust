@@ -1,231 +1,322 @@
 // src/app/page.tsx
-'use client'; // Added because this page now uses useState for the modal
+'use client';
 
-import React, { useState } from 'react'; // Import useState
-import Image from 'next/image'; // For optimized images
-import Link from 'next/link';   // For client-side navigation
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiUsers, FiGlobe, FiTarget, FiHeart, FiBriefcase, FiAperture, FiCreditCard } from 'react-icons/fi';
 
-import ProductModal from '../components/ProductModal'; // Import the new ProductModal component
+// --- 1. Define Theme Colors and Data ---
+const THEME_COLORS = {
+  primary: 'indigo', // Indigo-700 for main actions and background accents
+  secondary: 'yellow', // Yellow-500 for highlight accents
+  dark: 'gray-800',
+  light: 'gray-50',
+};
 
-// Define the Product interface (should be consistent across files that use it)
-interface Product {
-  name: string;
-  href: string;
-  image: string;
-  description: string;
-}
+// Simplified handler data (Replace with actual names and roles)
+const TRUST_HANDLERS = [
+  {
+    name: 'Mr. Pinakin Verma',
+    role: 'Founder & Managing Trustee',
+    image: '/images/p1.jpg',
+    bio: 'Visionary behind the trust, dedicated to community empowerment and education.',
+    icon: '👤'
+  },
+  {
+    name: 'Mrs. Anjali Rao',
+    role: 'Director of Programs',
+    image: '/images/p3.jpg',
+    bio: 'Oversees project implementation, focusing on maximizing social impact and outreach.',
+    icon: '💡'
+  },
+  {
+    name: 'Mr. Dev Singh',
+    role: 'Financial Officer',
+    image: '/images/p2.jpg',
+    bio: 'Ensures transparent and efficient use of funds, upholding donor trust and compliance.',
+    icon: '💰'
+  },
+];
 
-export default function DashboardPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null); // Fixed: Unexpected any
+// Donation details
+const BANK_DETAILS = {
+  accountName: 'Pinakin India Trust',
+  accountNumber: '1234567890123',
+  ifscCode: 'SBIN000001',
+  bank: 'State Bank of India',
+};
 
-  const featuredProducts = [
-    // UPDATED: image paths to your actual files in public/images/
-    { name: 'Luxury Bedsheets', href: '/products', image: '/images/bedsheet.jpg', description: 'Indulge in supreme comfort and elegance with our curated collection of luxury bedsheets, perfect for a restful sanctuary.' },
-    { name: 'Custom Blinds & Curtains', href: '/products', image: '/images/blinds.jpg', description: 'Tailored window solutions offering privacy, light control, and an exquisite touch to your interiors.' },
-    { name: 'Artisan Carpets & Runners', href: '/products', image: '/images/carpets.jpg', description: 'Hand-knotted and premium quality carpets to add warmth, texture, and a foundation of style to any room.' },
-    { name: 'Designer Sofa & Cushion Covers', href: '/products', image: '/images/sofa-cover.jpg', description: 'Refresh your living space with our range of stylish sofa and cushion covers, blending comfort with contemporary design.' },
-  ];
 
-  const whyChooseUsPoints = [
-    { title: 'Local Expertise', icon: '📍', description: 'Deep understanding of Lucknow\'s design aesthetics and local preferences.' },
-    { title: 'Personalized Service', icon: '🤝', description: 'Dedicated consultation and bespoke solutions tailored to your unique vision.' },
-    { title: 'Premium Quality', icon: '✨', description: 'Curated selection of high-quality products and materials for lasting beauty.' },
-    { title: 'Comprehensive Solutions', icon: '🛋️', description: 'From products to services, we offer everything to perfect your home.' },
-  ];
-
-  const openProductModal = (product: Product) => { // Fixed: Unexpected any
-    setSelectedProduct(product);
-    setIsModalOpen(true);
-  };
-
-  const closeProductModal = () => {
-    setIsModalOpen(false);
-    setSelectedProduct(null);
-  };
-
+export default function HomePage() {
   return (
-    <div className="bg-gray-50">
-      {/* Hero Section */}
-      <section className="relative min-h-[50vh] md:min-h-[80vh] flex items-center justify-center text-center overflow-hidden pt-20 md:pt-0">
+    <div className={`bg-${THEME_COLORS.light}`}>
+
+      {/* ---------------------------------------------------- */}
+      {/* 1. Hero Section (Header) - IMPROVED CONTRAST */}
+      {/* ---------------------------------------------------- */}
+      <section className="relative min-h-[65vh] flex items-center justify-center text-center overflow-hidden pt-20">
         <Image
-          src="/images/curtains.jpg"
-          alt="Elegant interior design showcase by Home Decor Lucknow"
+          src="/images/t1.jpg"
+          alt="Community support project by Pinakin India Trust"
           fill
           style={{ objectFit: 'cover' }}
-          className="blur-sm scale-105"
+          className="blur-sm"
           priority
         />
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 text-white p-6 py-16 md:py-0 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg animate-fade-in-down">
-            Elevate Your Home with Exquisite Decor in Lucknow
+        {/* Adjusted opacity for better text visibility */}
+        <div className="absolute inset-0 bg-gray-900 opacity-70"></div>
+        <div className="relative z-10 text-white p-6 py-16 max-w-5xl mx-auto">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight drop-shadow-lg">
+            Empowering Communities. Building Futures.
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-8 opacity-90 drop-shadow-md animate-fade-in-up">
-            Home Decor: Lucknow&apos;s trusted destination for premium furnishings and tailored interior design services.
-          </p> {/* Fixed: ' */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up delay-200">
-            <Link href="/products" className="inline-block bg-teal-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-teal-700 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
-              Explore Home Decor Products
+          <p className="text-lg md:text-xl lg:text-2xl mb-8 opacity-95 drop-shadow-md font-medium">
+            The Pinakin India Trust is dedicated to fostering sustainable change through education, health, and social welfare programs across India.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/services"
+              className={`button-primary bg-${THEME_COLORS.primary}-600 text-white shadow-lg hover:bg-${THEME_COLORS.primary}-700`}>
+              See Our Programs
             </Link>
-            <Link href="/services" className="inline-block bg-white text-teal-700 px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl">
-              Discover Our Design Services
+            <Link href="/contact"
+              className="button-secondary border border-white text-white hover:bg-white hover:text-indigo-700">
+              Support Our Mission
             </Link>
           </div>
         </div>
       </section>
 
-      {/* About Us Section */}
+      {/* Added global Tailwind utility styles for consistent buttons */}
+      <style jsx global>{`
+        .button-primary {
+          display: inline-block;
+          padding: 0.75rem 2rem;
+          border-radius: 9999px;
+          font-weight: 600;
+          transition: all 0.3s ease-in-out;
+          transform: scale(1);
+        }
+        .button-primary:hover {
+          transform: scale(1.05);
+        }
+        .button-secondary {
+          display: inline-block;
+          padding: 0.75rem 2rem;
+          border-radius: 9999px;
+          font-weight: 600;
+          transition: all 0.3s ease-in-out;
+          transform: scale(1);
+        }
+        .button-secondary:hover {
+          transform: scale(1.05);
+        }
+      `}</style>
+
+      {/* ---------------------------------------------------- */}
+      {/* 2. About Us Summary & CTA - VISIBILITY FINE */}
+      {/* ---------------------------------------------------- */}
+      // Updated section for Integrity. Impact. Change.
       <section className="container mx-auto px-4 py-16 md:py-24 text-center">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">
-          Your Premier Home Decor Destination in Lucknow
+        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6">
+          {/* Adjusted to bold/extrabold font for higher impact */}
+          Integrity. Impact. Change.
         </h2>
-        <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-          At <strong>Home Decor, Lucknow</strong>, we are dedicated to transforming your living and working spaces into beautiful, functional, and personalized environments. Conveniently located at Shop No. 1-2, Prabhu Plaza, near Tedhi Puliya Sabji Mandi Red Light, Kursi Road, Lucknow - 226021, we bring years of expertise in interior design and a meticulously curated selection of high-quality furnishings. From contemporary flair to traditional elegance, our team works closely with you to understand your vision and deliver exceptional results that elevate your everyday living.
+        <p className="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-12">
+          The Pinakin India Trust was founded on the principle that sustainable development is driven by local initiatives and unwavering commitment. We focus on transparent operations and measurable impact in education, health, and community building, ensuring every contribution leads to a tangible improvement in lives.
         </p>
+
+        {/* Redesigned Cards for Visual Appeal and Hover Effect */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
+
+          {/* Card 1: Focus on Community */}
+          <div className="p-6 md:p-8 rounded-xl shadow-xl bg-white border-b-4 border-indigo-600 transition duration-300 hover:shadow-2xl hover:bg-indigo-50 transform hover:-translate-y-1">
+            <FiUsers className="text-5xl mx-auto mb-4 text-indigo-700" />
+            <h3 className="font-bold text-lg md:text-xl text-gray-900 mb-2">Focus on Community</h3>
+            <p className="text-gray-600 text-sm">Our grassroots approach ensures that every project is locally driven, addressing the most pressing needs of the community.</p>
+          </div>
+
+          {/* Card 2: Global Standards */}
+          <div className="p-6 md:p-8 rounded-xl shadow-xl bg-white border-b-4 border-indigo-600 transition duration-300 hover:shadow-2xl hover:bg-indigo-50 transform hover:-translate-y-1">
+            <FiGlobe className="text-5xl mx-auto mb-4 text-indigo-700" />
+            <h3 className="font-bold text-lg md:text-xl text-gray-900 mb-2">Global Standards</h3>
+            <p className="text-gray-600 text-sm">We adhere to the highest international standards of governance and best practices for charitable operations.</p>
+          </div>
+
+          {/* Card 3: Measurable Impact */}
+          <div className="p-6 md:p-8 rounded-xl shadow-xl bg-white border-b-4 border-indigo-600 transition duration-300 hover:shadow-2xl hover:bg-indigo-50 transform hover:-translate-y-1">
+            <FiTarget className="text-5xl mx-auto mb-4 text-indigo-700" />
+            <h3 className="font-bold text-lg md:text-xl text-gray-900 mb-2">Measurable Impact</h3>
+            <p className="text-gray-600 text-sm">We track and report our results diligently, guaranteeing that your support translates into quantifiable, positive change.</p>
+          </div>
+        </div>
+
+        <Link href="/about-us"
+          className={`button-primary bg-indigo-700 text-white shadow-lg hover:bg-indigo-800`}>
+          Read Our Full Story →
+        </Link>
       </section>
 
-      {/* Why Choose Us Section */}
-      <section className="bg-gradient-to-r from-blue-50 to-teal-50 py-16 md:py-24">
+      {/* ---------------------------------------------------- */}
+      {/* 3. Trust Handlers / Leadership Team - REDESIGNED */}
+      {/* ---------------------------------------------------- */}
+      <section className={`bg-gradient-to-r from-${THEME_COLORS.primary}-50 to-white py-16 md:py-24`}>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-12">
-            Why Choose Home Decor?
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+            Meet the Stewards of Pinakin India Trust
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {whyChooseUsPoints.map((point, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center text-center">
-                <div className="text-5xl mb-4">{point.icon}</div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{point.title}</h3>
-                <p className="text-gray-600 text-sm">{point.description}</p>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
+            Our trust is driven by a passionate team committed to transparency and dedicated action.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {TRUST_HANDLERS.map((handler, index) => (
+              <div key={index} className="bg-white p-8 rounded-xl shadow-2xl border-t-8 border-yellow-500 transform transition duration-300 hover:scale-[1.03] hover:shadow-2xl flex flex-col items-center text-center">
+                {/* Image is now larger (w-40 h-40) and styled professionally */}
+                <div className="relative w-40 h-40 mb-5 rounded-full overflow-hidden border-4 border-indigo-500 shadow-xl">
+                  <Image
+                    src={handler.image}
+                    alt={`Portrait of ${handler.name}`}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="transition duration-500 ease-in-out hover:opacity-80"
+                  />
+                </div>
+                <h3 className="text-2xl font-extrabold text-gray-900 mb-1">{handler.name}</h3>
+                {/* Role is highlighted */}
+                <p className={`text-lg font-semibold text-${THEME_COLORS.primary}-600 mb-4`}>{handler.role}</p>
+                <p className="text-gray-600 text-base italic">{handler.bio}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products Showcase */}
+      {/* ---------------------------------------------------- */}
+      {/* 4. Services Summary & CTA - VISIBILITY FINE */}
+      {/* ---------------------------------------------------- */}
       <section className="container mx-auto px-4 py-16 md:py-24">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 text-center mb-12">
-          Discover Our Handpicked Home Decor Products
+        <div className="text-center max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+            Our Core Pillars of Service
+          </h2>
+          <p className="text-lg text-gray-700 leading-relaxed mb-8">
+            We focus our efforts across three vital areas—Education, Health, and Livelihoods—to ensure comprehensive and lasting social development where it is needed most.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <ServiceCard
+            icon={<FiBriefcase className={`text-5xl text-${THEME_COLORS.secondary}-500`} />}
+            title="Education & Skilling"
+            description="Providing access to quality learning and vocational training to create paths to stable employment."
+          />
+          <ServiceCard
+            icon={<FiHeart className={`text-5xl text-${THEME_COLORS.secondary}-500`} />}
+            title="Health & Wellness"
+            description="Running health camps and ensuring basic medical access in underserved and rural areas."
+          />
+          <ServiceCard
+            icon={<FiUsers className={`text-5xl text-${THEME_COLORS.secondary}-500`} />}
+            title="Livelihood & Support"
+            description="Creating self-help groups and supporting local entrepreneurship for financial stability."
+          />
+        </div>
+
+        <div className="text-center">
+          <Link href="/services"
+            className={`button-primary bg-${THEME_COLORS.primary}-700 text-white shadow-lg hover:bg-${THEME_COLORS.primary}-800`}>
+            View All Programs →
+          </Link>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- */}
+      {/* 5. Gallery Showcase & CTA - VISIBILITY FINE */}
+      {/* ---------------------------------------------------- */}
+      <section className={`bg-${THEME_COLORS.dark} text-white py-16 md:py-24 text-center`}>
+        <div className="container mx-auto px-4 max-w-4xl">
+          <FiAperture className="text-6xl mx-auto mb-4 text-yellow-500" />
+          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+            Witness Our Impact
+          </h2>
+          <p className="text-lg md:text-xl opacity-90 mx-auto mb-10">
+            See the real-world difference your support makes. Our gallery showcases moments from our latest initiatives, events, and project completions.
+          </p>
+          <Link href="/gallery"
+            className={`button-secondary border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-${THEME_COLORS.dark}`}>
+            Explore the Gallery →
+          </Link>
+        </div>
+      </section>
+
+      // ----------------------------------------------------
+      // 6. Donation & Contact CTA - VISIBILITY IMPROVED
+      // ----------------------------------------------------
+      <section className="container mx-auto px-4 py-16 md:py-24 text-center bg-gray-50">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-8">
+          Support Our Mission: Donate Today
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {featuredProducts.map((product, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl">
-              <div className="relative w-full h-56">
-                <Image
-                  src={product.image}
-                  alt={`Home Decor Product: ${product.name}`}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-t-xl"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2 line-clamp-1">{product.name}</h3>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-1">{product.description}</p>
-                <button
-                  onClick={() => openProductModal(product)}
-                  className="w-full inline-block text-center bg-teal-600 text-white px-5 py-2 rounded-full text-md font-medium hover:bg-teal-700 transition duration-300 shadow-md"
-                >
-                  View Product
-                </button>
+
+        {/* REDESIGNED CARD: Higher contrast, clearer separation */}
+        <div className="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-t-8 border-indigo-600 max-w-3xl mx-auto">
+          <FiCreditCard className="text-5xl mx-auto mb-4 text-green-600" />
+          <p className="text-xl text-gray-700 mb-6 font-medium">
+            Every contribution directly fuels our initiatives in education and welfare. Your support makes a tangible difference.
+          </p>
+
+          {/* HIGH-CONTRAST BANK DETAILS BLOCK */}
+          <div className="text-left space-y-4 p-4 md:p-6 bg-indigo-50 rounded-xl border-2 border-indigo-200 shadow-inner">
+            <h3 className="text-2xl font-bold text-indigo-800 border-b pb-2 mb-2">Official Bank Account Details</h3>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base md:text-lg">
+              <p><strong className='text-black'>Account Name:</strong> <span className="font-semibold text-gray-900">{BANK_DETAILS.accountName}</span></p>
+              <p><strong className='text-black'>Bank:</strong> <span className="font-semibold text-gray-900">{BANK_DETAILS.bank}</span></p>
+            </div>
+
+            <div className="border-t pt-3">
+              <p className="mb-2 text-black"><strong>Account Number:</strong></p>
+              {/* ACCOUNT NUMBER: Use dark, highly visible background for number */}
+              <div className="font-mono text-xl text-gray-900 bg-yellow-300 p-2 rounded-md shadow-sm select-all">
+                {BANK_DETAILS.accountNumber}
               </div>
             </div>
-          ))}
-        </div>
-        <div className="text-center mt-12">
-          <Link href="/products" className="inline-block bg-gray-800 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
-            Browse All Home Decor Items
-          </Link>
-        </div>
-      </section>
 
-      {/* Call to Action for Services */}
-      <section className="bg-neutral-800 text-white py-16 md:py-24 text-center rounded-xl mx-4 my-16 shadow-2xl">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Ready to Redefine Your Space in Lucknow?
-          </h2>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-            From custom designs to full renovations, our expert interior design services are tailored to bring your vision to life, right here in Lucknow.
+            <div>
+              <p className="mb-2 text-black"><strong>IFSC Code:</strong></p>
+              {/* IFSC: Use dark, highly visible background */}
+              <div className="font-mono text-xl text-gray-900 bg-yellow-300 p-2 rounded-md shadow-sm select-all">
+                {BANK_DETAILS.ifscCode}
+              </div>
+            </div>
+          </div>
+          {/* END HIGH-CONTRAST BANK DETAILS BLOCK */}
+
+          <p className="text-lg text-gray-700 mt-8 font-semibold">
+            Important: After donating, please click the button below to send us a confirmation message (including the transaction ID) so we can issue your official tax receipt.
           </p>
-          <Link href="/services" className="inline-block bg-white text-neutral-800 px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
-            Discover Our Interior Design Services
+
+          {/* CTA Button is Green (universal donate color) */}
+          <Link href="/contact"
+            className="mt-8 inline-block bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-green-700 transition duration-300 transform hover:scale-105">
+            Confirm Donation →
           </Link>
         </div>
       </section>
 
-      {/* Our Location Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24 text-center bg-yellow-50 rounded-xl shadow-inner mb-12">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">
-          Visit Our Showroom in Lucknow
-        </h2>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-6">
-          Experience the quality and artistry of our home decor products and discuss your design needs with our experts. We&apos;re conveniently located at:
-        </p>
-        <address className="not-italic text-xl font-semibold text-gray-800 mb-6">
-          Shop no 1-2 Prabhu Plaza, Tedhi Puliya,<br /> Sabji Mandi Red Light
-          Kursi road, Lucknow, Uttar Pradesh 226021
-        </address>
-        <p className="text-base text-gray-600 mb-8">
-          <strong>Business Hours:</strong> Thursday - Tuesday, 11:00 AM - 9:00 PM <br />
-          (Closed on Wednesday)
-        </p>
-        {/* <div className="w-full rounded-lg overflow-hidden shadow-md mb-8">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.118029013063!2d80.95378991499999!3d26.905429200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39995700217a1dcf%3A0x31fa6573c35b4507!2sHome%20Decor%20Furnishing%20Store!5e0!3m2!1sen!2sin!4v1678912345678!5m2!1sen!2sin"
-            width="100%"
-            height="300"
-            className="md:h-80"
-            style={{ objectFit: 'cover' }}
-            allowFullScreen={false}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Home Decor Furnishing Store Location on Google Maps"
-          ></iframe>
-        </div> */}
-        <div className="mt-8">
-          <Link
-            href="https://www.google.com/maps/place/26%C2%B054'19.9%22N+80%C2%B057'21.1%22E/@26.905513,80.9532887,17z/data=!3m1!4b1!4m4!3m3!8m2!3d26.905513!4d80.9558636?entry=ttu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-orange-500 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-orange-600 transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Open in Google Maps
-          </Link>
-        </div>
-      </section>
-
-      {/* Testimonials/Client Showcase */}
-      <section className="container mx-auto px-4 py-16 md:py-24 text-center bg-gray-100 rounded-xl shadow-inner">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-12">
-          What Our Lucknow Clients Say
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div className="bg-white p-8 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl">
-            <p className="italic text-gray-700 mb-4">
-              &quot;Home Decor in Lucknow truly transformed my apartment near Gomti Nagar! Their bedsheets are incredibly luxurious, and the advice for my living room setup was invaluable.&quot;
-            </p>
-            <p className="font-semibold text-gray-800">- Priya Sharma, Lucknow</p>
-          </div>
-          <div className="bg-white p-8 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl">
-            <p className="italic text-gray-700 mb-4">
-              &quot;The modular kitchen designed by Home Decor is a dream come true for our Jankipuram home. Functional, stylish, and perfect for our family. Highly recommended for interior design in Lucknow!&quot;
-            </p>
-            <p className="font-semibold text-gray-800">- Rahul Singh, Lucknow</p>
-          </div>
-        </div>
-        <div className="text-center mt-12">
-          <Link href="/contact" className="inline-block bg-gray-800 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-gray-700 transition duration-300 ease-in-out transform hover:scale-105">
-            Schedule a Consultation
-          </Link>
-        </div>
-      </section>
-
-      {/* Product Modal Component */}
-      {isModalOpen && selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeProductModal} />
-      )}
     </div>
   );
 }
+
+// Helper Card Component for Services
+interface ServiceCardProps {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon, title, description }) => (
+  <div className="bg-white p-8 rounded-xl shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center text-center border-b-4 border-yellow-500">
+    <div className="mb-4">{icon}</div>
+    <h3 className="text-xl font-semibold text-gray-900 mb-3">{title}</h3>
+    <p className="text-gray-600 text-base">{description}</p>
+  </div>
+);

@@ -1,26 +1,35 @@
 // src/app/faqs/page.tsx
-'use client'; // This page uses useState for accordion functionality
+'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image'; // Import Image component
-import Link from 'next/link';   // Import Link component
+import Image from 'next/image';
+import Link from 'next/link';
+import { FiHelpCircle } from 'react-icons/fi';
 
-// Removed 'type { Metadata } from 'next';' as it's no longer exported here.
-// Removed: export const metadata block
+// Define Theme Colors for consistency
+const THEME_COLORS = {
+  primary: 'indigo',
+  secondary: 'yellow',
+};
 
 // --- AccordionItem Component (Reusable) ---
 interface AccordionItemProps {
   question: string;
-  answer: string | React.ReactNode; // Allow ReactNode for richer content
+  answer: string | React.ReactNode;
   isOpen: boolean;
   onClick: () => void;
 }
 
 function AccordionItem({ question, answer, isOpen, onClick }: AccordionItemProps) {
+  // Use Tailwind classes for styling based on theme
+  const primaryColorClass = `text-${THEME_COLORS.primary}-700`;
+  const hoverBgClass = `hover:bg-${THEME_COLORS.primary}-50`;
+  const focusRingClass = `focus:ring-${THEME_COLORS.primary}-500`;
+
   return (
     <div className="border-b border-gray-200">
       <button
-        className="flex justify-between items-center w-full py-4 px-6 text-left text-lg font-semibold text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-300 rounded-t-md"
+        className={`flex justify-between items-center w-full py-4 px-6 text-left text-lg font-semibold ${primaryColorClass} ${hoverBgClass} focus:outline-none ${focusRingClass} transition duration-300 rounded-none`}
         onClick={onClick}
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${question.replace(/\s+/g, '-')}`}
@@ -39,8 +48,7 @@ function AccordionItem({ question, answer, isOpen, onClick }: AccordionItemProps
         id={`faq-answer-${question.replace(/\s+/g, '-')}`}
         role="region"
         aria-labelledby={`faq-question-${question.replace(/\s+/g, '-')}`}
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-screen opacity-100 py-4 px-6' : 'max-h-0 opacity-0'
-          }`}
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-screen opacity-100 py-4 px-6' : 'max-h-0 opacity-0'}`}
       >
         <p className="text-gray-700 leading-relaxed">{answer}</p>
       </div>
@@ -54,46 +62,38 @@ export default function FAQsPage() {
 
   const faqs = [
     {
-      question: 'What types of home decor products does Home Decor Lucknow offer?',
-      answer: <>At Home Decor, Lucknow, we offer a diverse range of premium products including <strong>luxury bedsheets</strong>, <strong>custom blinds</strong>, <strong>elegant curtains</strong>, <strong>designer doormats</strong>, <strong>artisan carpets</strong>, <strong>artificial grass</strong>, <strong>dohars (AC comforters)</strong>, <strong>premium towels</strong>, <strong>sofa covers</strong>, <strong>cushion covers</strong>, <strong>masand covers</strong>, <strong>trendy wallpapers</strong>, <strong>center tables and covers</strong>, <strong>dining tables and covers</strong>, <strong>runners</strong>, <strong>mattresses</strong>, <strong>pillows and pillow covers</strong>, <strong>chair covers</strong>, <strong>sofa sets</strong>, and <strong>designer beds</strong>. We curate items to suit various styles and budgets for every home in Lucknow.</>
+      question: 'How is Pinakin India Trust legally registered?',
+      answer: <>The Pinakin India Trust is a legally registered public charitable trust under the <strong>Indian Trusts Act</strong>. We adhere to all statutory compliances and are registered with the relevant government authorities. This structure ensures our operations are governed by a fiduciary duty to our beneficiaries and the public.</>
     },
     {
-      question: 'Do you provide interior design services in Lucknow?',
-      answer: <>Yes, absolutely! Home Decor offers comprehensive <strong>interior design services in Lucknow</strong>, Uttar Pradesh. Our expert team specializes in <strong>customized curtains and blinds</strong>, <strong>modular kitchen design and installation</strong>, <strong>sofa repair and upholstery</strong>, and <strong>bespoke mandir design and build</strong>. We provide personalized consultations to bring your vision to life.</>
+      question: 'Where does the majority of my donation go?',
+      answer: <>We commit to ensuring that a maximum portion of your donation, **over 85%**, is directed towards our core programs (Education, Health, and Livelihoods). The remainder covers essential administrative costs necessary for audits, compliance, and fundraising. We maintain high standards of <strong>financial transparency</strong>.</>
     },
     {
-      question: 'Where do you source your home decor products from?',
-      answer: <>We pride ourselves on sourcing high-quality <strong>home decor products</strong> from reputable manufacturers and artisans <strong>from across India</strong>. Our network allows us to bring you unique and durable items, ensuring a diverse and exclusive collection for our clients in Lucknow.</>
+      question: 'Can I receive a tax exemption certificate for my donation?',
+      answer: <>Yes. All donations made to the Pinakin India Trust are eligible for tax exemption under **Section 80G** of the Income Tax Act, 1961, in India. We will issue a tax receipt (80G certificate) promptly after your donation is confirmed. Please use the contact form to share your PAN and transaction details.</>
     },
     {
-      question: 'Do you offer home delivery for products in Lucknow?',
-      answer: <>Yes, Home Decor provides convenient <strong>home delivery services</strong> for all our products within Lucknow and surrounding areas. Our team ensures your purchases are delivered safely and efficiently to your doorstep. Please inquire about delivery charges and timelines during your purchase.</>
+      question: 'How can I track the impact of my donation?',
+      answer: <>We provide regular **Transparency Reports** detailing our project outcomes and fund allocation, available on our website. You can also view real-time progress and photos of our work in the <strong>Gallery section</strong>, which is updated frequently with project milestones.</>
     },
     {
-      question: 'What is the address of your showroom in Lucknow?',
+      question: 'How can I volunteer my time or skills?',
       answer: (
         <>
-          You can visit our showroom at:
+          We welcome dedicated volunteers! We need support in areas like teaching, medical services, event management, and digital literacy.
           <br /><br />
-          <strong>Home Decor</strong><br />
-          Shop no 1-2 Prabhu Plaza, Tedhi Puliya,<br /> Sabji Mandi Red Light
-          Kursi Road, Lucknow, Uttar Pradesh 226021
-          <br /><br />
-          We look forward to welcoming you and helping you explore our collection!
+          Please visit the <strong>Contact Us</strong> page and specify "Volunteer Inquiry" in the subject line, detailing your skills and availability. Our outreach team will get back to you shortly.
         </>
       )
     },
     {
-      question: 'Can I get customized curtains or blinds?',
-      answer: <>Yes, <strong>customized curtains and blinds</strong> are one of our specialties. We offer a wide range of fabrics, styles, and finishes to perfectly match your interior decor and functional requirements. Our experts will take measurements and ensure a perfect fit for your windows in Lucknow.</>
+      question: 'Does the Trust work in specific geographic regions?',
+      answer: <>While our base is currently focused on underserved areas in [State Placeholder, e.g., Uttar Pradesh and Delhi], our vision is national. We select projects based on critical need and the potential for **sustainable, scalable impact**, not just geographical location.</>
     },
     {
-      question: 'What is the process for a modular kitchen design consultation?',
-      answer: <>Our <strong>modular kitchen design</strong> process begins with a free consultation at our Lucknow showroom or your home. We discuss your needs, preferences, and budget, then create a 3D design. Once approved, we handle the installation, ensuring a seamless and efficient transformation of your kitchen space.</>
-    },
-    {
-      question: 'How do I book a sofa repair or upholstery service?',
-      answer: <>To book <strong>sofa repair or upholstery services</strong> in Lucknow, simply contact us via phone or email, or visit our showroom. Our team will assess the condition of your sofa, discuss fabric options, and provide a detailed quote. We aim to restore your furniture to its former glory.</>
+      question: 'Who manages the Trust and ensures accountability?',
+      answer: <>The Trust is governed by a dedicated <strong>Board of Trustees</strong>, comprising experts in finance, education, and social work. The board ensures financial accountability, ethical governance, and strict adherence to the Trust Deed and Indian laws. You can meet our leadership on the <strong>About Us</strong> page.</>
     },
   ];
 
@@ -101,16 +101,20 @@ export default function FAQsPage() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  const primaryColorClass = `bg-${THEME_COLORS.primary}-700`;
+  const primaryHoverClass = `hover:bg-${THEME_COLORS.primary}-800`;
+
   return (
     <div className="bg-gray-50">
+
       {/* FAQs Hero/Intro Section */}
-      <section className="relative bg-gradient-to-br from-neutral-700 to-neutral-900 text-white py-16 md:py-24 text-center overflow-hidden rounded-b-xl shadow-lg">
+      <section className={`relative ${primaryColorClass} text-white py-16 md:py-24 text-center overflow-hidden shadow-lg`}>
         <Image
-          src="/images/kitchen.jpg" // Unique image for this hero
-          alt="Frequently Asked Questions about Home Decor Lucknow"
+          src="/images/t4.jpg" // Using the general theme image
+          alt="Pinakin India Trust FAQs"
           fill
           style={{ objectFit: 'cover' }}
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-20"
           priority
         />
         <div className="relative z-10 container mx-auto px-4">
@@ -118,14 +122,14 @@ export default function FAQsPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 drop-shadow-md">
-            Find quick answers to common queries about our home decor products and interior design services in Lucknow.
+            Find quick, transparent answers to common questions regarding our mission, finances, and ways you can help.
           </p>
         </div>
       </section>
 
       {/* FAQs Content Section */}
       <section className="container mx-auto px-4 py-16 md:py-24 max-w-4xl">
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100">
           {faqs.map((faq, index) => (
             <AccordionItem
               key={index}
@@ -137,14 +141,18 @@ export default function FAQsPage() {
           ))}
         </div>
 
-        <div className="text-center mt-12 p-6 bg-gray-100 rounded-xl shadow-md">
+        <div className="text-center mt-12 p-8 bg-indigo-50 rounded-xl shadow-lg border-t-4 border-yellow-500">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
             Still Have Questions?
           </h2>
           <p className="text-lg text-gray-700 mb-6">
-            If you couldn&apos;t find the answer you were looking for, don&apos;t hesitate to reach out to our friendly team.
-          </p> {/* FIXED: 'couldn't' and 'don't' */}
-          <Link href="/contact" className="inline-block bg-teal-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-teal-700 transition duration-300 ease-in-out transform hover:scale-105">
+            If your question wasn't answered here, please don't hesitate to reach out to our team directly. We prioritize transparency.
+          </p>
+          {/* CTA Button using primary theme colors */}
+          <Link
+            href="/contact"
+            className={`inline-block bg-yellow-500 text-gray-900 px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:scale-105`}
+          >
             Contact Us Directly
           </Link>
         </div>

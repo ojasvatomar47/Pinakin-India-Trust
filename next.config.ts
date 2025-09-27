@@ -1,11 +1,24 @@
-// next.config.ts
 import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Add the hostname of your Supabase storage
   images: {
-    // Remove or comment out this line if all images are in public/images/
-    // domains: [], // Or simply remove the 'images' object if it's empty
+    // Note: The value should be just the hostname, without 'https://' or trailing slashes.
+    domains: ['qvkxzcskfhxoctkkkvvx.supabase.co'], 
   },
+  // If you are using Next.js 13 or later, you might prefer the remotePatterns property:
+  /*
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'qvkxzcskfhxoctkkkvvx.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**', // This ensures security and specificity
+      },
+    ],
+  },
+  */
 };
 
 export default nextConfig;

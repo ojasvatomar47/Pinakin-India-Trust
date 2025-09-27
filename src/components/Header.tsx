@@ -1,8 +1,8 @@
-// src/components/Header.tsx
-'use client'; // This component uses useState for menu toggle
+'use client';
 
-import React, { useState } from 'react'; // Import useState
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { Menu, X, Heart } from 'lucide-react'; // Using Lucide icons for a modern look
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,113 +15,101 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
+  const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/services' },
+    { name: 'Gallery', href: '/gallery' },
+    { name: 'FAQs', href: '/faqs' },
+    { name: 'About Us', href: '/about-us' },
+  ];
+
   return (
-    <header className="bg-white shadow-lg py-4 px-6 md:px-12 sticky top-0 z-50 rounded-b-xl">
+    <header className="bg-white shadow-xl py-4 px-6 md:px-12 sticky top-0 z-50 border-b-4 border-indigo-600">
       <nav className="container mx-auto flex justify-between items-center">
         {/* Logo/Site Title */}
-        <Link href="/" className="text-3xl font-extrabold text-teal-700 hover:text-teal-900 transition duration-300">
-          Home Decor
+        <Link
+          href="/"
+          className="text-2xl sm:text-3xl font-extrabold text-indigo-700 hover:text-indigo-900 transition duration-300 flex items-center"
+          onClick={closeMobileMenu}
+        >
+          {/* Using a subtle icon in the logo */}
+          <Heart className="w-6 h-6 mr-2 text-yellow-500" fill="#f59e0b" stroke="#f59e0b" />
+          Pinakin India Trust
         </Link>
+
+        {/* Desktop Navigation Links - visible on medium and larger screens */}
+        <ul className="hidden md:flex flex-wrap justify-center gap-x-6 lg:gap-x-10 text-lg font-medium items-center">
+          {navLinks.map((link) => (
+            <li key={link.name}>
+              <Link
+                href={link.href}
+                className="text-gray-700 hover:text-indigo-600 transition duration-300 px-3 py-2 rounded-md hover:bg-indigo-50"
+              >
+                {link.name}
+              </Link>
+            </li>
+          ))}
+          {/* Highlighted Contact/Donation CTA Button */}
+          <li>
+            <Link
+              href="/contact"
+              className="ml-4 bg-yellow-500 text-gray-900 px-6 py-2 rounded-full text-md font-bold shadow-md hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
+            >
+              Donate / Contact
+            </Link>
+          </li>
+        </ul>
 
         {/* Mobile Menu Button (Hamburger) - visible only on small screens */}
         <div className="md:hidden">
           <button
             onClick={toggleMobileMenu}
-            className="text-gray-700 hover:text-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-md p-2"
+            className="text-gray-700 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md p-2"
             aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? (
-              // Close Icon (X)
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <X className="h-6 w-6" /> // Close Icon (X)
             ) : (
-              // Hamburger Icon
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
+              <Menu className="h-6 w-6" /> // Hamburger Icon
             )}
           </button>
         </div>
-
-        {/* Desktop Navigation Links - visible on medium and larger screens */}
-        <ul className="hidden md:flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg font-medium">
-          <li>
-            <Link href="/" className="text-gray-700 hover:text-teal-600 transition duration-300 px-3 py-2 rounded-md">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link href="/products" className="text-gray-700 hover:text-teal-600 transition duration-300 px-3 py-2 rounded-md">
-              Products
-            </Link>
-          </li>
-          <li>
-            <Link href="/services" className="text-gray-700 hover:text-teal-600 transition duration-300 px-3 py-2 rounded-md">
-              Services
-            </Link>
-          </li>
-          <li>
-            <Link href="/faqs" className="text-gray-700 hover:text-teal-600 transition duration-300 px-3 py-2 rounded-md">
-              FAQs
-            </Link>
-          </li>
-          <li>
-            <Link href="/contact" className="text-gray-700 hover:text-teal-600 transition duration-300 px-3 py-2 rounded-md">
-              Contact
-            </Link>
-          </li>
-        </ul>
       </nav>
 
       {/* Mobile Menu Overlay/Sidebar */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40" onClick={closeMobileMenu}>
+        <div className="md:hidden fixed inset-0 bg-black bg-opacity-60 z-40" onClick={closeMobileMenu}>
           <div
-            className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out"
-            // Prevent clicks inside the menu from closing it
+            className="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out p-6"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6">
-              <div className="flex justify-end mb-8">
-                <button
-                  onClick={closeMobileMenu}
-                  className="text-gray-700 hover:text-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 rounded-md p-2"
-                  aria-label="Close mobile menu"
-                >
-                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-              <ul className="flex flex-col space-y-4 text-xl font-medium">
-                <li>
-                  <Link href="/" onClick={closeMobileMenu} className="block text-gray-700 hover:text-teal-600 transition duration-300 py-2">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/products" onClick={closeMobileMenu} className="block text-gray-700 hover:text-teal-600 transition duration-300 py-2">
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" onClick={closeMobileMenu} className="block text-gray-700 hover:text-teal-600 transition duration-300 py-2">
-                    Services
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faqs" onClick={closeMobileMenu} className="block text-gray-700 hover:text-teal-600 transition duration-300 py-2">
-                    FAQs
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" onClick={closeMobileMenu} className="block text-gray-700 hover:text-teal-600 transition duration-300 py-2">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
+            <div className="flex justify-end mb-8">
+              <button
+                onClick={closeMobileMenu}
+                className="text-gray-700 hover:text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md p-2"
+                aria-label="Close mobile menu"
+              >
+                <X className="h-6 w-6" />
+              </button>
             </div>
+
+            <ul className="flex flex-col space-y-4 text-xl font-medium">
+              {[...navLinks, { name: 'Donate / Contact', href: '/contact', cta: true }].map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    href={link.href} 
+                    onClick={closeMobileMenu} 
+                    className={`block py-3 px-2 rounded-md transition duration-300 
+                                ${('cta' in link && link.cta) // <-- CORRECT WAY TO CHECK IN TS
+                                  ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-bold' 
+                                  : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                                }`}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       )}

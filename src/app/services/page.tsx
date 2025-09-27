@@ -1,89 +1,170 @@
-// src/app/services/page.tsx
-'use client'; // This page uses client-side interactivity
-
-import React from 'react';
+import React, { JSX } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-// Removed: import { getPlaceholderImage } from '../../lib/utils'; // Adjust path if needed
+import { FiBookOpen, FiHeart, FiBriefcase, FiTarget, FiHelpCircle } from 'react-icons/fi';
 
-// Removed: export const metadata block
-// Metadata is now handled by the parent layout.tsx (Server Component)
+// Define Theme Colors for consistency
+const THEME_COLORS = {
+  primary: 'indigo', 
+  secondary: 'yellow', 
+};
 
-export default function ServicesPage() {
-  const services = [
-    // UPDATED: image paths to your actual files in public/images/
-    { name: 'Customized Curtains & Blinds', image: '/images/cust-curtains.jpg', description: 'Tailored window treatments designed to perfectly match your interior aesthetic and functional needs, offering style, privacy, and light control for your Lucknow home.' },
-    { name: 'Modular Kitchen Design & Installation', image: '/images/kitchen.jpg', description: 'Innovative and ergonomic modular kitchen solutions crafted for modern living. We design and install kitchens that blend beauty with maximum efficiency in your Lucknow residence.' },
-    { name: 'Sofa Repair & Upholstery Services', image: '/images/sofa.jpg', description: 'Expert repair and re-upholstery services to bring new life to your cherished sofas and seating. Preserve your furniture\'s comfort and durability with our skilled craftsmen in Lucknow.' },
-    { name: 'Bespoke Mandir Design & Build', image: '/images/mandir.jpg', description: 'Custom mandir designs that blend traditional aesthetics with contemporary elegance, creating a serene and spiritual sacred space uniquely tailored for your home in Lucknow.' },
-  ];
+interface Program {
+    title: string;
+    subtitle: string;
+    description: string;
+    image: string;
+    icon: JSX.Element;
+    ctaText: string;
+    link: string;
+    color: string;
+    id: number;
+}
+
+// Define the data for the three core programs
+const CORE_PROGRAMS: Program[] = [
+  {
+    title: 'Education & Vocational Skilling',
+    subtitle: 'Building Foundations for a Brighter Tomorrow',
+    description: 'We believe education is the most powerful tool for change. Our initiatives focus on improving school enrollment, providing access to quality learning resources, and offering vocational training for youth. This ensures beneficiaries gain the practical skills needed to secure stable employment and lift their families out of poverty.',
+    image: '/images/t1.jpg', 
+    icon: <FiBookOpen className="text-6xl text-white" />,
+    ctaText: 'View Education Projects in Gallery',
+    link: '/gallery', // Valid link
+    color: 'indigo-600',
+    id: 1,
+  },
+  {
+    title: 'Health, Sanitation & Wellness',
+    subtitle: 'Nurturing Healthy Minds and Bodies in Underserved Areas',
+    description: 'Access to basic healthcare is a fundamental right. We organize regular medical camps, awareness drives on hygiene and sanitation, and provide essential nutritional support to mothers and children. Our goal is to reduce preventable diseases and promote long-term well-being within our communities.',
+    image: '/images/t2.jpg', 
+    icon: <FiHeart className="text-6xl text-white" />,
+    ctaText: 'Contact for Health Initiatives',
+    link: '/contact', // Valid link
+    color: 'teal-600',
+    id: 2,
+  },
+  {
+    title: 'Livelihood & Community Support',
+    subtitle: 'Empowering Local Economies Through Entrepreneurship',
+    description: 'Our livelihood programs focus on creating sustainable income streams. We establish self-help groups, provide micro-financing support, and teach practical skills like tailoring, farming techniques, and digital literacy. We empower individuals, especially women, to become financially independent and leaders in their communities.',
+    image: '/images/t3.jpg', 
+    icon: <FiBriefcase className="text-6xl text-white" />,
+    ctaText: 'Support a Community Project',
+    link: '/contact', // Valid link
+    color: 'amber-600',
+    id: 3,
+  },
+];
+
+// Reusable component for the alternating program sections (Fixed Typings)
+const ProgramDetailCard: React.FC<{ program: Program }> = ({ program }) => {
+  const isReverse = program.id % 2 === 0;
 
   return (
-    <div className="bg-gray-50">
-      {/* Services Hero/Intro Section - UPDATED COLOR */}
-      <section className="relative bg-gradient-to-br from-neutral-700 to-neutral-900 text-white py-16 md:py-24 text-center overflow-hidden rounded-b-xl shadow-lg">
+    <div className={`flex flex-col ${isReverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-stretch bg-white shadow-2xl rounded-xl overflow-hidden group transition duration-500 hover:shadow-3xl`}>
+      
+      {/* Image Side (Added aspect ratio and padding adjustment for placeholder look) */}
+      <div className={`relative w-full md:w-1/2 h-80 ${isReverse ? 'border-r-8 border-yellow-500' : 'border-l-8 border-yellow-500'}`}>
         <Image
-          src="/images/mandir.jpg" // <-- Use your actual services hero image
-          alt="Interior Design Services in Lucknow"
+          src={program.image}
+          alt={`Pinakin Trust Program: ${program.title}`}
+          fill
+          // Ensure image covers the area completely
+          style={{ objectFit: 'cover' }} 
+          // Slight transformation based on ID for visual variety among placeholders
+          className={`group-hover:scale-[1.03] transition duration-500 ease-in-out ${program.id === 2 ? 'scale-105' : ''}`}
+        />
+      </div>
+
+      {/* Content Side */}
+      <div className="w-full md:w-1/2 p-8 lg:p-12 space-y-4 flex flex-col justify-center">
+        <span className={`text-sm font-semibold uppercase text-${program.color}`}>
+          Core Program {program.id}
+        </span>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
+          {program.title}
+        </h2>
+        <h3 className="text-xl font-semibold text-gray-700">
+          {program.subtitle}
+        </h3>
+        <p className="text-gray-600 leading-relaxed text-base">
+          {program.description}
+        </p>
+        
+        {/* Call to Action Button */}
+        <Link href={program.link} 
+          className={`mt-6 inline-flex items-center justify-center self-start text-sm font-semibold px-6 py-3 rounded-full 
+                      bg-${THEME_COLORS.primary}-700 text-white shadow-lg hover:bg-${THEME_COLORS.primary}-800 
+                      transition duration-300 transform hover:scale-[1.02]`}>
+          <FiTarget className="w-4 h-4 mr-2" />
+          {program.ctaText}
+        </Link>
+      </div>
+    </div>
+  );
+};
+
+// ----------------------------------------------------------------------
+
+export default function ServicesPage() {
+  return (
+    <div className={`bg-gray-50`}>
+      
+      {/* 1. Hero Section: Services Overview */}
+      <section className="relative min-h-[40vh] flex items-center justify-center text-center overflow-hidden">
+        <Image
+          src="/images/t4.jpg" 
+          alt="Pinakin India Trust services overview"
           fill
           style={{ objectFit: 'cover' }}
-          className="absolute inset-0 opacity-30"
           priority
         />
-        <div className="relative z-10 container mx-auto px-4">
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight drop-shadow-lg">
-            Our Professional Interior Design Services
+        <div className="absolute inset-0 bg-indigo-900 opacity-80"></div>
+        <div className="relative z-10 text-white p-6 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
+            Our Sustainable Impact Programs
           </h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto opacity-90 drop-shadow-md">
-            Bringing your dream interiors to life with bespoke design solutions and expert craftsmanship in Lucknow.
-          </p>
+          <p className="text-lg md:text-xl opacity-95 drop-shadow-md">
+            We focus our efforts on three fundamental pillars—Education, Health, and Livelihoods—to ensure deep, lasting, and comprehensive social development where it is needed most.
+          </p> 
         </div>
       </section>
 
-      {/* Services Grid Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
-        <h2 className="text-3xl md:text-5xl font-bold text-gray-900 text-center mb-12">
-          Tailored Solutions for Your Space
+      {/* 2. Core Pillars Detail Section (Z-Pattern) */}
+      <section className="container mx-auto px-4 py-16 md:py-24 space-y-16 lg:space-y-24">
+        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 text-center mb-16">
+            Detailed Program Offerings
         </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl group">
-              <div className="relative w-full h-64">
-                <Image
-                  src={service.image} // Now directly using the image path from services array
-                  alt={`Service: ${service.name}`}
-                  fill
-                  style={{ objectFit: 'cover' }}
-                  className="rounded-t-xl"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">{service.name}</h3>
-                <p className="text-gray-700 text-base leading-relaxed mb-4">{service.description}</p>
-                <Link href="/contact" className="inline-block bg-blue-600 text-white px-6 py-3 rounded-full text-md font-medium hover:bg-blue-700 transition duration-300 shadow-md">
-                  Enquire About This Service
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
+        {CORE_PROGRAMS.map((program) => (
+          <ProgramDetailCard key={program.id} program={program} />
+        ))}
       </section>
 
-      {/* Call to Action for Free Consultation */}
-      <section className="bg-teal-700 text-white py-16 md:py-24 text-center rounded-xl mx-4 my-16 shadow-2xl">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            Ready for a Personalized Design Consultation?
+      {/* 3. Final CTA: FAQs and Support */}
+      <section className="bg-white py-16 md:py-24 text-center border-t-2 border-gray-200">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <FiHelpCircle className="text-6xl mx-auto mb-4 text-yellow-500" />
+          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+            Partner With Us For Change
           </h2>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-10">
-            Let our experts guide you through the process of creating your ideal living or working space in Lucknow.
+          <p className="text-lg md:text-xl text-gray-700 mx-auto mb-10">
+            Whether you want to volunteer your skills, inquire about corporate social responsibility (CSR) opportunities, or donate, your partnership is vital to expanding our reach.
           </p>
-          <Link href="/contact" className="inline-block bg-white text-teal-700 px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105">
-            Book Your Free Consultation Now
-          </Link>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/gallery" 
+                className={`inline-block border border-${THEME_COLORS.primary}-700 text-${THEME_COLORS.primary}-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-${THEME_COLORS.primary}-700 hover:text-white transition duration-300 transform hover:scale-105`}>
+              See Our Work in Action
+            </Link>
+            <Link href="/contact" 
+                className={`inline-block bg-yellow-500 text-gray-900 px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105`}>
+              Contact Our Partnership Team
+            </Link>
+          </div>
         </div>
       </section>
+
     </div>
   );
 }
