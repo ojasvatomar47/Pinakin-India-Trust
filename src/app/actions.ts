@@ -3,7 +3,7 @@ import { supabaseAdmin } from '@/lib/server/supabaseAdmin';
 import { revalidatePath } from 'next/cache';
 
 // NOTE: This MUST match the hardcoded value in ImageUploader.tsx
-const HARDCODED_OTP = '1234'; 
+const HARDCODED_OTP = '7465'; 
 
 export async function uploadImageServerAction(otp: string, formData: FormData) {
   if (otp !== HARDCODED_OTP) {

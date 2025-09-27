@@ -6,7 +6,7 @@ import { FiUploadCloud, FiLock, FiCheckCircle, FiAlertTriangle, FiImage } from '
 import { uploadImageServerAction } from '@/app/actions'; // Using the Server Action
 
 // NOTE: This MUST match the hardcoded value in app/actions.ts
-const HARDCODED_OTP = '1234'; 
+const HARDCODED_OTP = '7465'; 
 
 // The component no longer accepts a prop
 export default function ImageUploader() { 

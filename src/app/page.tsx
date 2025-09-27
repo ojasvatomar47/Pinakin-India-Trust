@@ -42,7 +42,7 @@ const TRUST_HANDLERS = [
 // Donation details
 const BANK_DETAILS = {
   accountName: 'Pinakin India Trust',
-  accountNumber: '1234567890123',
+  accountNumber: '7465567890123',
   ifscCode: 'SBIN000001',
   bank: 'State Bank of India',
 };

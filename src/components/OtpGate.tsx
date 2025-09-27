@@ -5,7 +5,7 @@ import { FiLock, FiKey } from 'react-icons/fi';
 import ImageUploader from '@/components/ImageUploader'; // Import the full uploader
 
 // NOTE: This MUST match the hardcoded value in app/actions.ts
-const HARDCODED_OTP = '1234';
+const HARDCODED_OTP = '7465';
 
 export default function MinimalOtpGate() {
     const [otp, setOtp] = useState('');
