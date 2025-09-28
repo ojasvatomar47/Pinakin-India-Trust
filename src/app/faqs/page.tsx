@@ -4,7 +4,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiHelpCircle } from 'react-icons/fi';
 
 // Define Theme Colors for consistency
 const THEME_COLORS = {
@@ -102,7 +101,6 @@ export default function FAQsPage() {
   };
 
   const primaryColorClass = `bg-${THEME_COLORS.primary}-700`;
-  const primaryHoverClass = `hover:bg-${THEME_COLORS.primary}-800`;
 
   return (
     <div className="bg-gray-50">

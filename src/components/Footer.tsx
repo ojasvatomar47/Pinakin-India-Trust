@@ -1,4 +1,3 @@
-// src/components/Footer.tsx
 import React from 'react';
 import Link from 'next/link';
 import { FiFacebook, FiTwitter, FiInstagram, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
@@ -82,13 +81,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* 4. Contact Information */}
+          {/* 4. Contact Information - UPDATED DETAILS */}
           <div className="col-span-2 md:col-span-1 space-y-4">
             <h3 className="text-lg font-semibold text-white mb-4 border-b border-indigo-500 pb-2">Get In Touch</h3>
             <div className="space-y-3 text-sm">
               <p className="flex items-start">
                 <FiMail className="w-5 h-5 mr-3 text-yellow-500 flex-shrink-0 mt-1" />
-                <a href="mailto:info@pinakinindiatrust.org" className="hover:text-yellow-500">info@pinakinindiatrust.org</a>
+                <a href="mailto:pinakinindiatrust@gmail.com" className="hover:text-yellow-500">pinakinindiatrust@gmail.com</a> {/* UPDATED EMAIL */}
               </p>
               <p className="flex items-start">
                 <FiPhone className="w-5 h-5 mr-3 text-yellow-500 flex-shrink-0 mt-1" />
@@ -97,7 +96,7 @@ export default function Footer() {
               <p className="flex items-start">
                 <FiMapPin className="w-5 h-5 mr-3 text-yellow-500 flex-shrink-0 mt-1" />
                 <address className="not-italic">
-                  123 Trust Headquarters, <br />New Delhi, India 110001
+                  CORNER SHOP DA256/1 WARD NO. 19, KALYAN ENCLAVE COLONY PART 1 NEAR CHAUPAL RESTAURANT PALWAL, Haryana - 121102 {/* UPDATED ADDRESS */}
                 </address>
               </p>
             </div>

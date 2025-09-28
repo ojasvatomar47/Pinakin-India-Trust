@@ -1,28 +1,25 @@
-'use client'; 
+'use client';
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { FiMail, FiHeart, FiUser, FiCreditCard } from 'react-icons/fi'; // Using Fi icons for visual appeal
+import { FiMail, FiHeart, FiUser, FiCreditCard, FiMapPin } from 'react-icons/fi'; // Added FiMapPin
 
 // Define Theme Colors for consistency
 const THEME_COLORS = {
-  primary: 'indigo', 
-  secondary: 'yellow', 
+  primary: 'indigo',
+  secondary: 'yellow',
 };
 
 // NOTE: Using the Formspree endpoint from the user's provided code for continuity.
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mdkwazaj'; 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mdkwazaj';
+const PRIMARY_EMAIL = 'pinakinindiatrust@gmail.com'; // New Primary Email
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // We use standard form submission here for simplicity with Formspree's redirect/success page.
-  // For a seamless UX without redirects, you would use fetch() and handle state internally (as shown in the earlier solution).
-  // Assuming the user wants the quick Formspree integration via action/method.
-
   return (
     <div className="bg-gray-50 font-sans">
-      
+
       {/* ---------------------------------------------------- */}
       {/* Contact Hero/Intro Section (Themed) */}
       {/* ---------------------------------------------------- */}
@@ -49,21 +46,19 @@ export default function ContactPage() {
       {/* Contact Form & Confirmation Instructions Section */}
       {/* ---------------------------------------------------- */}
       <section className="container mx-auto px-4 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        
+
         {/* Contact Form (Takes 2/3 space on large screens) */}
         <div className="lg:col-span-2 bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-t-8 border-indigo-600">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center lg:text-left">
             Send a Message or Confirm Donation
           </h2>
-          
+
           <form
-            action={FORMSPREE_ENDPOINT} 
-            method="POST" 
+            action={FORMSPREE_ENDPOINT}
+            method="POST"
             className="space-y-6"
-            // Simple method to simulate success message if fetch were used: 
-            // onSubmit={(e) => { e.preventDefault(); fetch(FORMSPREE_ENDPOINT, { method: 'POST', body: new FormData(e.target as HTMLFormElement) }).then(() => setIsSubmitted(true)); }}
           >
-            {/* 1. Name */}
+            {/* Form Fields... (remain the same) */}
             <div>
               <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">Your Full Name</label>
               <div className="relative">
@@ -71,7 +66,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   id="name"
-                  name="name" 
+                  name="name"
                   className="pl-10 block text-gray-800 w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-yellow-500 focus:border-yellow-500 transition duration-200"
                   placeholder="Full Name"
                   required
@@ -79,7 +74,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* 2. Contact Info (Email/Phone) */}
             <div>
               <label htmlFor="contact_info" className="block text-sm font-semibold text-gray-700 mb-2">Email ID or Phone Number</label>
               <div className="relative">
@@ -87,7 +81,7 @@ export default function ContactPage() {
                 <input
                   type="text"
                   id="contact_info"
-                  name="contact_info" 
+                  name="contact_info"
                   className="pl-10 block text-gray-800 w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-yellow-500 focus:border-yellow-500 transition duration-200"
                   placeholder="e.g., you@example.com or +91 9876543210"
                   required
@@ -95,27 +89,25 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* 3. Subject (using Formspree's _subject) */}
             <div>
               <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
               <input
                 type="text"
                 id="subject"
-                name="_subject" 
+                name="_subject"
                 className="block text-gray-800 w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-yellow-500 focus:border-yellow-500 transition duration-200"
                 placeholder="Inquiry, Donation Confirmation, etc."
                 required
               />
             </div>
-            
-            {/* 4. Message (combined general message and donation details) */}
+
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
                 Your Message / Donation Details
               </label>
               <textarea
                 id="message"
-                name="message" 
+                name="message"
                 rows={5}
                 className="block text-gray-800 w-full border border-gray-300 rounded-md shadow-sm py-3 px-4 focus:ring-yellow-500 focus:border-yellow-500 transition duration-200"
                 placeholder="If confirming a donation, please include the exact amount, date, and Transaction ID/UPI Ref."
@@ -131,7 +123,7 @@ export default function ContactPage() {
             </button>
 
             {isSubmitted && (
-                <p className="text-center text-green-600 font-semibold mt-4">Thank you! Your message has been sent.</p>
+              <p className="text-center text-green-600 font-semibold mt-4">Thank you! Your message has been sent.</p>
             )}
           </form>
         </div>
@@ -143,32 +135,45 @@ export default function ContactPage() {
               Key Contact Information
             </h2>
             <div className="space-y-6 text-gray-700">
-              
+
+              {/* General Email - UPDATED */}
               <div className="flex items-start text-lg">
                 <FiMail className="w-6 h-6 text-indigo-600 mr-3 flex-shrink-0 mt-1" />
                 <div>
-                    <span className="font-semibold block">General Inquiries</span>
-                    <a href="mailto:info@pinakinindiatrust.org" className="hover:text-indigo-700 hover:underline">info@pinakinindiatrust.org</a>
+                  <span className="font-semibold block">Primary Contact Email</span>
+                  <a href={`mailto:${PRIMARY_EMAIL}`} className="hover:text-indigo-700 hover:underline">{PRIMARY_EMAIL}</a>
                 </div>
               </div>
 
+              {/* Address - NEW */}
+              <div className="flex items-start text-lg">
+                <FiMapPin className="w-6 h-6 text-indigo-600 mr-3 flex-shrink-0 mt-1" />
+                <div>
+                  <span className="font-semibold block">Registered Address</span>
+                  <address className="not-italic text-base">
+                    CORNER SHOP DA256/1 WARD NO. 19, KALYAN ENCLAVE COLONY PART 1 NEAR CHAUPAL RESTAURANT PALWAL, Haryana - 121102
+                  </address>
+                </div>
+              </div>
+
+              {/* Partnerships Email (Placeholder) */}
               <div className="flex items-start text-lg">
                 <FiHeart className="w-6 h-6 text-indigo-600 mr-3 flex-shrink-0 mt-1" />
                 <div>
-                    <span className="font-semibold block">Partnerships & CSR</span>
-                    <a href="mailto:partnerships@pinakinindiatrust.org" className="hover:text-indigo-700 hover:underline">partnerships@pinakinindiatrust.org</a>
+                  <span className="font-semibold block">Partnerships & CSR</span>
+                  <a href="mailto:partnerships@pinakinindiatrust.org" className="hover:text-indigo-700 hover:underline">partnerships@pinakinindiatrust.org</a>
                 </div>
               </div>
             </div>
           </div>
-          
+
           {/* Donation Confirmation Reminder */}
           <div className="mt-12 p-5 bg-yellow-50 rounded-lg shadow-inner border border-yellow-200">
-              <FiCreditCard className="w-8 h-8 text-yellow-600 mb-3" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Donation Confirmation</h3>
-              <p className="text-gray-700 text-base">
-                  If you have made a donation via bank transfer, please use the form to the left to submit the transaction ID/reference so we can verify the contribution and send your tax receipt promptly.
-              </p>
+            <FiCreditCard className="w-8 h-8 text-yellow-600 mb-3" />
+            <h3 className="text-xl font-bold text-gray-900 mb-2">Donation Confirmation</h3>
+            <p className="text-gray-700 text-base">
+              If you have made a donation via bank transfer, please use the form to the left to submit the transaction ID/reference so we can verify the contribution and send your tax receipt promptly.
+            </p>
           </div>
         </div>
       </section>
