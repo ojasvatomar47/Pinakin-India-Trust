@@ -42,7 +42,7 @@ export default function DonatePage() {
             key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
             amount: order.amount,
             currency: "INR",
-            name: "Your Cause Name",
+            name: "Pinakin India Trust",
             description: "Thank you for supporting ❤️",
             order_id: order.id,
             prefill: {
