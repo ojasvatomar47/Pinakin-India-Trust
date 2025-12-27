@@ -108,7 +108,7 @@ export default function FAQsPage() {
       {/* FAQs Hero/Intro Section */}
       <section className={`relative ${primaryColorClass} text-white py-16 md:py-24 text-center overflow-hidden shadow-lg`}>
         <Image
-          src="/images/t4.jpg" // Using the general theme image
+          src="/logo.png" // Using the general theme image
           alt="Pinakin India Trust FAQs"
           fill
           style={{ objectFit: 'cover' }}
@@ -148,10 +148,10 @@ export default function FAQsPage() {
           </p>
           {/* CTA Button using primary theme colors */}
           <Link
-            href="/contact"
+            href="/donate"
             className={`inline-block bg-yellow-500 text-gray-900 px-8 py-3 rounded-full text-lg font-semibold shadow-md hover:bg-yellow-600 transition duration-300 ease-in-out transform hover:scale-105`}
           >
-            Contact Us Directly
+            Donate / Contact Us Directly
           </Link>
         </div>
       </section>

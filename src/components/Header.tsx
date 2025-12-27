@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, Heart } from 'lucide-react'; // Using Lucide icons for a modern look
+import Image from 'next/image';
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,11 +30,17 @@ export default function Header() {
         {/* Logo/Site Title */}
         <Link
           href="/"
-          className="text-2xl sm:text-3xl font-extrabold text-indigo-700 hover:text-indigo-900 transition duration-300 flex items-center"
+          className="flex items-center text-2xl sm:text-3xl font-extrabold text-indigo-700 hover:text-indigo-900 transition duration-300"
           onClick={closeMobileMenu}
         >
-          {/* Using a subtle icon in the logo */}
-          <Heart className="w-6 h-6 mr-2 text-yellow-500" fill="#f59e0b" stroke="#f59e0b" />
+          {/* Logo */}
+          <Image
+            src="/logo.png"  // or /logo.png
+            alt="Pinakin India Trust Logo"
+            width={40}        // adjust size
+            height={40}
+            className="mr-2"
+          />
           Pinakin India Trust
         </Link>
 
@@ -52,7 +59,7 @@ export default function Header() {
           {/* Highlighted Contact/Donation CTA Button */}
           <li>
             <Link
-              href="/contact"
+              href="/donate"
               className="ml-4 bg-yellow-500 text-gray-900 px-6 py-2 rounded-full text-md font-bold shadow-md hover:bg-yellow-600 transition duration-300 transform hover:scale-105"
             >
               Donate / Contact
@@ -94,16 +101,16 @@ export default function Header() {
             </div>
 
             <ul className="flex flex-col space-y-4 text-xl font-medium">
-              {[...navLinks, { name: 'Donate / Contact', href: '/contact', cta: true }].map((link) => (
+              {[...navLinks, { name: 'Donate / Contact', href: '/donate', cta: true }].map((link) => (
                 <li key={link.name}>
-                  <Link 
-                    href={link.href} 
-                    onClick={closeMobileMenu} 
+                  <Link
+                    href={link.href}
+                    onClick={closeMobileMenu}
                     className={`block py-3 px-2 rounded-md transition duration-300 
                                 ${('cta' in link && link.cta) // <-- CORRECT WAY TO CHECK IN TS
-                                  ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-bold' 
-                                  : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
-                                }`}
+                        ? 'bg-indigo-600 text-white hover:bg-indigo-700 font-bold'
+                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50'
+                      }`}
                   >
                     {link.name}
                   </Link>
