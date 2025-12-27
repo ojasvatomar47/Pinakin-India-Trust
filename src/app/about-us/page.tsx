@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiEye, FiZap, FiTarget, FiHeart, FiAward, FiUsers, FiBriefcase } from 'react-icons/fi';
@@ -12,28 +14,54 @@ const TRUST_VALUES = [
 ];
 
 // Governance Data (reusing handlers from the homepage)
+const THEME_COLORS = {
+    primary: 'indigo', // Indigo-700 for main actions and background accents
+    secondary: 'yellow', // Yellow-500 for highlight accents
+    dark: 'gray-800',
+    light: 'gray-50',
+};
+
+// Simplified handler data (Replace with actual names and roles)
 const TRUST_HANDLERS = [
     {
-        name: 'Mr. Pinakin Verma',
-        role: 'Founder & Managing Trustee',
-        image: '/images/p1.jpg',
-        bio: 'The visionary leader driving the trust\'s mission to empower the next generation through comprehensive educational and welfare programs.',
+        name: "Dr. Ashutosh Pratap Singh",
+        role: "President",
+        image: "/images/p1.jpg",
+        bio: "Visionary behind the trust, dedicated to community empowerment and education.",
+        icon: "👤",
     },
     {
-        name: 'Mrs. Anjali Rao',
-        role: 'Director of Programs & Outreach',
-        image: '/images/p3.jpg',
-        bio: 'Responsible for strategic planning and execution of all ground-level programs, ensuring maximum social returns on investment.',
+        name: "Dr. Ajay Bhardwaj",
+        role: "Director of Programs",
+        image: "/images/p2.jpg",
+        bio: "Oversees project implementation, focusing on maximizing social impact and outreach.",
+        icon: "💡",
     },
     {
-        name: 'Mr. Dev Singh',
-        role: 'Chief Financial Officer & Compliance',
-        image: '/images/p2.jpg',
-        bio: 'Oversees all budgetary functions, financial reporting, and legal compliance, ensuring donor funds are used efficiently and responsibly.',
+        name: "Dr. Krishnapal Nagar",
+        role: "Financial Officer",
+        image: "/images/p1.jpg",
+        bio: "Ensures transparent and efficient use of funds, upholding donor trust and compliance.",
+        icon: "💰",
+    },
+    {
+        name: "Dr. Hemant Saini",
+        role: "Outreach Coordinator",
+        image: "/images/p2.jpg",
+        bio: "Connects with local communities to ensure effective program delivery.",
+        icon: "🌟",
+    },
+    {
+        name: "Dr. Rathod Jagdishkumar Raghubhai",
+        role: "Operations Manager",
+        image: "/images/p1.jpg",
+        bio: "Manages day-to-day operations and logistics for smooth functioning of projects.",
+        icon: "⚙️",
     },
 ];
 
 export default function AboutUsPage() {
+    const carouselRef = useRef<HTMLDivElement>(null);
     return (
         <div className={`bg-gray-50`}>
 
@@ -115,32 +143,57 @@ export default function AboutUsPage() {
             {/* ---------------------------------------------------- */}
             {/* 4. Leadership / Governance Team */}
             {/* ---------------------------------------------------- */}
-            <section className="container mx-auto px-4 py-16 md:py-24">
-                <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 text-center mb-4">
-                    Meet the Board of Trustees
-                </h2>
-                <p className="text-lg text-gray-700 max-w-3xl mx-auto text-center mb-12">
-                    Our leadership ensures rigorous governance and adherence to our mission. Their dedication is the bedrock of our success.
-                </p>
+            <section className="bg-gradient-to-r from-indigo-50 to-white py-16 md:py-24">
+                <div className="container mx-auto px-4 text-center">
+                    <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+                        Meet the Stewards of Pinakin India Trust
+                    </h2>
+                    <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8 md:mb-12">
+                        Our trust is driven by a passionate team committed to transparency and dedicated action.
+                    </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    {TRUST_HANDLERS.map((handler, index) => (
-                        <div key={index} className="bg-white p-6 rounded-xl shadow-2xl border-t-8 border-indigo-500 flex flex-col items-center text-center">
+                    <div className="relative">
+                        {/* Scroll buttons for large screens */}
+                        <button
+                            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-10 h-10 items-center justify-center text-gray-700 hover:bg-gray-100 z-10"
+                            onClick={() => carouselRef.current?.scrollBy({ left: -300, behavior: "smooth" })}
+                            aria-label="Scroll left"
+                        >
+                            &#8592;
+                        </button>
+                        <button
+                            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-10 h-10 items-center justify-center text-gray-700 hover:bg-gray-100 z-10"
+                            onClick={() => carouselRef.current?.scrollBy({ left: 300, behavior: "smooth" })}
+                            aria-label="Scroll right"
+                        >
+                            &#8594;
+                        </button>
 
-                            {/* Image is large for credibility */}
-                            <div className="relative w-48 h-48 mb-5 rounded-full overflow-hidden border-4 border-yellow-500 shadow-xl">
-                                <Image
-                                    src={handler.image}
-                                    alt={`Portrait of ${handler.name}`}
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                />
-                            </div>
-                            <h3 className="text-2xl font-extrabold text-gray-900 mb-1">{handler.name}</h3>
-                            <p className={`text-lg font-semibold text-indigo-700 mb-4`}>{handler.role}</p>
-                            <p className="text-gray-600 text-base italic">{handler.bio}</p>
+                        <div
+                            ref={carouselRef}
+                            className="flex gap-6 overflow-x-auto scroll-smooth scrollbar-hide md:scrollbar-auto py-4 px-2 md:px-0"
+                        >
+                            {TRUST_HANDLERS.map((handler, index) => (
+                                <div
+                                    key={index}
+                                    className="min-w-[90%] md:min-w-[28%] bg-white p-6 rounded-xl shadow-2xl border-t-8 border-yellow-500 flex flex-col items-center text-center transform transition duration-300 hover:scale-[1.03] hover:shadow-2xl"
+                                >
+                                    <div className="relative w-40 h-40 mb-5 rounded-full overflow-hidden border-4 border-indigo-500 shadow-xl">
+                                        <Image
+                                            src={handler.image}
+                                            alt={`Portrait of ${handler.name}`}
+                                            fill
+                                            style={{ objectFit: "cover" }}
+                                            className="transition duration-500 ease-in-out hover:opacity-80"
+                                        />
+                                    </div>
+                                    <h3 className="text-2xl font-extrabold text-gray-900 mb-1">{handler.name}</h3>
+                                    <p className="text-lg font-semibold text-indigo-600 mb-4">{handler.role}</p>
+                                    <p className="text-gray-600 text-base italic">{handler.bio}</p>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
                 </div>
             </section>
 
