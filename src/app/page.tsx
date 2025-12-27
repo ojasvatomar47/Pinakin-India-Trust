@@ -4,7 +4,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiUsers, FiGlobe, FiTarget, FiHeart, FiBriefcase, FiAperture, FiCreditCard } from 'react-icons/fi';
+import { FiUsers, FiGlobe, FiTarget, FiHeart, FiBriefcase, FiAperture } from 'react-icons/fi';
 
 // --- 1. Define Theme Colors and Data ---
 const THEME_COLORS = {
@@ -38,14 +38,6 @@ const TRUST_HANDLERS = [
     icon: '💰'
   },
 ];
-
-// Donation details
-const BANK_DETAILS = {
-  accountName: 'Pinakin India Trust',
-  accountNumber: '7465567890123',
-  ifscCode: 'SBIN000001',
-  bank: 'State Bank of India',
-};
 
 
 export default function HomePage() {

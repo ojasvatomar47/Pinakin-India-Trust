@@ -37,7 +37,7 @@ export default function DonatePage() {
         });
 
         const order = await res.json();
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const options = {
             key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
             amount: order.amount,
@@ -49,6 +49,7 @@ export default function DonatePage() {
                 name,
                 email,
             },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             handler: async (response: any) => {
                 await fetch("/api/verify-payment", {
                     method: "POST",
@@ -65,7 +66,7 @@ export default function DonatePage() {
                 color: "#16a34a",
             },
         };
-
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         new (window as any).Razorpay(options).open();
         setLoading(false);
     };
@@ -209,7 +210,7 @@ export default function DonatePage() {
                     </div>
 
                     <p className="text-gray-500 text-sm mt-2">
-                        We're happy to assist you with any queries regarding donations or our activities.
+                        We&apos;re happy to assist you with any queries regarding donations or our activities.
                     </p>
                 </div>
 
