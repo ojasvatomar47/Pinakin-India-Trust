@@ -61,7 +61,7 @@ export default async function GalleryPage() {
                         Inspired by our work? Help us add more memories!
                     </p>
                     <a
-                        href="/contact"
+                        href="/donate"
                         className="mt-4 inline-block px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:text-lg transition duration-150 shadow-md"
                     >
                         Support Our Mission

@@ -42,7 +42,7 @@ export default function AboutUsPage() {
             {/* ---------------------------------------------------- */}
             <section className="relative min-h-[40vh] flex items-center justify-center text-center overflow-hidden">
                 <Image
-                    src="/images/t2.jpg" // Reusing placeholder
+                    src="/logo.png" // Reusing placeholder
                     alt="Pinakin India Trust community photo"
                     fill
                     style={{ objectFit: 'cover' }}
@@ -156,9 +156,9 @@ export default function AboutUsPage() {
                     <p className="text-lg md:text-xl opacity-90 mx-auto mb-10">
                         We are committed to full financial transparency. View our public reports and contact us directly with any questions regarding our operations or governance.
                     </p>
-                    <Link href="/contact"
+                    <Link href="/donate"
                         className={`inline-block border border-yellow-500 text-yellow-500 px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-yellow-500 hover:text-gray-800 transition duration-300 ease-in-out transform hover:scale-105`}>
-                        Contact Governance Team →
+                        Donate / Contact Governance Team →
                     </Link>
                 </div>
             </section>

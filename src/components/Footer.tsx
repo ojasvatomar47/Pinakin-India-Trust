@@ -14,7 +14,7 @@ const navLinks = [
   { name: 'About Us', href: '/about-us' },
   { name: 'Services', href: '/services' },
   { name: 'Gallery', href: '/gallery' },
-  { name: 'Contact Us', href: '/contact' },
+  { name: 'Donate/donate Us', href: '/donate' },
 ];
 
 const legalLinks = [
@@ -40,7 +40,7 @@ export default function Footer() {
               Dedicated to fostering sustainable community development, ensuring transparency, and creating measurable impact in education, health, and welfare across India.
             </p>
             <div className="mt-4">
-              <Link href="/contact"
+              <Link href="/donate"
                 className={`inline-block bg-yellow-500 text-${THEME_COLORS.dark} px-6 py-2 rounded-full text-sm font-bold shadow-md hover:bg-yellow-600 transition duration-300`}>
                 Donate Now
               </Link>

@@ -41,7 +41,7 @@ const CORE_PROGRAMS: Program[] = [
     image: '/images/t2.jpg', 
     icon: <FiHeart className="text-6xl text-white" />,
     ctaText: 'Contact for Health Initiatives',
-    link: '/contact', // Valid link
+    link: '/donate', // Valid link
     color: 'teal-600',
     id: 2,
   },
@@ -52,7 +52,7 @@ const CORE_PROGRAMS: Program[] = [
     image: '/images/t3.jpg', 
     icon: <FiBriefcase className="text-6xl text-white" />,
     ctaText: 'Support a Community Project',
-    link: '/contact', // Valid link
+    link: '/donate', // Valid link
     color: 'amber-600',
     id: 3,
   },
@@ -115,7 +115,7 @@ export default function ServicesPage() {
       {/* 1. Hero Section: Services Overview */}
       <section className="relative min-h-[40vh] flex items-center justify-center text-center overflow-hidden">
         <Image
-          src="/images/t4.jpg" 
+          src="/logo.png" 
           alt="Pinakin India Trust services overview"
           fill
           style={{ objectFit: 'cover' }}
@@ -157,7 +157,7 @@ export default function ServicesPage() {
                 className={`inline-block border border-${THEME_COLORS.primary}-700 text-${THEME_COLORS.primary}-700 px-8 py-3 rounded-full text-lg font-semibold hover:bg-${THEME_COLORS.primary}-700 hover:text-white transition duration-300 transform hover:scale-105`}>
               See Our Work in Action
             </Link>
-            <Link href="/contact" 
+            <Link href="/donate" 
                 className={`inline-block bg-yellow-500 text-gray-900 px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:bg-yellow-600 transition duration-300 transform hover:scale-105`}>
               Contact Our Partnership Team
             </Link>

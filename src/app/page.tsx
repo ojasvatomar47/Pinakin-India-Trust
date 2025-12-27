@@ -4,7 +4,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FiUsers, FiGlobe, FiTarget, FiHeart, FiBriefcase, FiAperture, FiCreditCard } from 'react-icons/fi';
+import { FiUsers, FiGlobe, FiTarget, FiHeart, FiBriefcase, FiAperture } from 'react-icons/fi';
 
 // --- 1. Define Theme Colors and Data ---
 const THEME_COLORS = {
@@ -39,14 +39,6 @@ const TRUST_HANDLERS = [
   },
 ];
 
-// Donation details
-const BANK_DETAILS = {
-  accountName: 'Pinakin India Trust',
-  accountNumber: '7465567890123',
-  ifscCode: 'SBIN000001',
-  bank: 'State Bank of India',
-};
-
 
 export default function HomePage() {
   return (
@@ -57,7 +49,7 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       <section className="relative min-h-[65vh] flex items-center justify-center text-center overflow-hidden pt-20">
         <Image
-          src="/images/t1.jpg"
+          src="/logo.png"
           alt="Community support project by Pinakin India Trust"
           fill
           style={{ objectFit: 'cover' }}
@@ -78,7 +70,7 @@ export default function HomePage() {
               className={`button-primary bg-${THEME_COLORS.primary}-600 text-white shadow-lg hover:bg-${THEME_COLORS.primary}-700`}>
               See Our Programs
             </Link>
-            <Link href="/contact"
+            <Link href="/donate"
               className="button-secondary border border-white text-white hover:bg-white hover:text-indigo-700">
               Support Our Mission
             </Link>
@@ -243,57 +235,6 @@ export default function HomePage() {
           <Link href="/gallery"
             className={`button-secondary border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-${THEME_COLORS.dark}`}>
             Explore the Gallery →
-          </Link>
-        </div>
-      </section>
-
-      <section className="container mx-auto px-4 py-16 md:py-24 text-center bg-gray-50">
-        <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-8">
-          Support Our Mission: Donate Today
-        </h2>
-
-        {/* REDESIGNED CARD: Higher contrast, clearer separation */}
-        <div className="bg-white p-6 sm:p-10 rounded-xl shadow-2xl border-t-8 border-indigo-600 max-w-3xl mx-auto">
-          <FiCreditCard className="text-5xl mx-auto mb-4 text-green-600" />
-          <p className="text-xl text-gray-700 mb-6 font-medium">
-            Every contribution directly fuels our initiatives in education and welfare. Your support makes a tangible difference.
-          </p>
-
-          {/* HIGH-CONTRAST BANK DETAILS BLOCK */}
-          <div className="text-left space-y-4 p-4 md:p-6 bg-indigo-50 rounded-xl border-2 border-indigo-200 shadow-inner">
-            <h3 className="text-2xl font-bold text-indigo-800 border-b pb-2 mb-2">Official Bank Account Details</h3>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-base md:text-lg">
-              <p><strong className='text-black'>Account Name:</strong> <span className="font-semibold text-gray-900">{BANK_DETAILS.accountName}</span></p>
-              <p><strong className='text-black'>Bank:</strong> <span className="font-semibold text-gray-900">{BANK_DETAILS.bank}</span></p>
-            </div>
-
-            <div className="border-t pt-3">
-              <p className="mb-2 text-black"><strong>Account Number:</strong></p>
-              {/* ACCOUNT NUMBER: Use dark, highly visible background for number */}
-              <div className="font-mono text-xl text-gray-900 bg-yellow-300 p-2 rounded-md shadow-sm select-all">
-                {BANK_DETAILS.accountNumber}
-              </div>
-            </div>
-
-            <div>
-              <p className="mb-2 text-black"><strong>IFSC Code:</strong></p>
-              {/* IFSC: Use dark, highly visible background */}
-              <div className="font-mono text-xl text-gray-900 bg-yellow-300 p-2 rounded-md shadow-sm select-all">
-                {BANK_DETAILS.ifscCode}
-              </div>
-            </div>
-          </div>
-          {/* END HIGH-CONTRAST BANK DETAILS BLOCK */}
-
-          <p className="text-lg text-gray-700 mt-8 font-semibold">
-            Important: After donating, please click the button below to send us a confirmation message (including the transaction ID) so we can issue your official tax receipt.
-          </p>
-
-          {/* CTA Button is Green (universal donate color) */}
-          <Link href="/contact"
-            className="mt-8 inline-block bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-xl hover:bg-green-700 transition duration-300 transform hover:scale-105">
-            Confirm Donation →
           </Link>
         </div>
       </section>
